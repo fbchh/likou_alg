@@ -6,27 +6,7 @@
 
 class Solution:
     def hammingDistance(self, x: int, y: int) -> int:
-        # print(bin(x), bin(y), len(bin(x)))
-
-        str_x = bin(x).split('0b')[1]
-        str_y = bin(y).split('0b')[1]
-        len_x = len(str_x)
-        len_y = len(str_y)
-        len_res = len_x - len_y
-
-        str_head = ['0' for i in range(abs(len_res))]
-        str_head = ''.join(str_head)
-        if len_res > 0:
-            str_y = str_head + str_y
-        elif len_res < 0:
-            str_x = str_head + str_x
-
-        # print(str_x, str_y)
-        diff_times = 0
-        for i in range(len(str_x)):
-            if str_x[i] != str_y[i]:
-                diff_times += 1
-        return diff_times
+        return bin(x ^ y).count("1")
 
 
 if __name__ == "__main__":
