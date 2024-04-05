@@ -56,14 +56,16 @@ class DataList:
         self.input_list.push(e)
 
     def pop(self):
-        if self.output_list.is_empty():
-            self._trans()
-        return self.output_list.pop()
+        if not self.is_empty():
+            if self.output_list.is_empty():
+                self._trans()
+            return self.output_list.pop()
 
     def peek(self):
-        if self.output_list.is_empty():
-            self._trans()
-        return self.output_list.peek()
+        if not self.is_empty():
+            if self.output_list.is_empty():
+                self._trans()
+            return self.output_list.peek()
 
     def is_empty(self):
         return self.input_list.size() + self.output_list.size() == 0
@@ -96,4 +98,6 @@ if __name__ == "__main__":
     _list1.pop()
 
     print(_list1.is_empty())
+
+    print(_list1.peek())
     pass
