@@ -1,12 +1,14 @@
 """
 xxx
 """
+from typing import List
 
 
 class Solve:
     """
     手撸版
     """
+
     def __init__(self):
         self._len = 0
         self.max_num = -9999
@@ -73,25 +75,40 @@ class Solve:
         return res
 
 
+class Solve1:
+    def __init__(self):
+        self.place = {}
+        self.res = []
+        ...
+
+    def core_backtrack(self, point_nm):
+        while point_nm in self.place and len(self.place[point_nm]) > 0:
+            _ = self.place[point_nm][0]
+            self.place[point_nm].pop(0)
+
+            self.core_backtrack(_)
+        self.res.append(point_nm)
+        # 在回溯的时候发现当前点已经下一个“站”可以走，即为“当前（本次递归）的最后一个点”
+        # 说简单点——结果的最后一站肯定是一个“哪里也去不了的站”（递归以此类推）
+
+    def solve(self, tickets):
+        tickets.sort(key=lambda e: e[1])
+
+        for e1, e2 in tickets:
+            if e1 in self.place:
+                self.place[e1].append(e2)
+            else:
+                self.place[e1] = [e2]
+
+        self.core_backtrack("JFK")
+        self.res.reverse()  # 在回溯的过程中把站点添加到结果集中，所以需要反向
+        return self.res
+
+
 if __name__ == "__main__":
     tst_ege = [["MUC", "LHR"], ["JFK", "MUC"], ["SFO", "SJC"], ["LHR", "SFO"]]
-    solve_obj = Solve()
-    # print(solve_obj.solve(tst_ege))
-    print(solve_obj.solve(
-        [["AXA", "EZE"], ["EZE", "AUA"], ["ADL", "JFK"], ["ADL", "TIA"], ["AUA", "AXA"], ["EZE", "TIA"], ["EZE", "TIA"],
-         ["AXA", "EZE"], ["EZE", "ADL"], ["ANU", "EZE"], ["TIA", "EZE"], ["JFK", "ADL"], ["AUA", "JFK"], ["JFK", "EZE"],
-         ["EZE", "ANU"], ["ADL", "AUA"], ["ANU", "AXA"], ["AXA", "ADL"], ["AUA", "JFK"], ["EZE", "ADL"], ["ANU", "TIA"],
-         ["AUA", "JFK"], ["TIA", "JFK"], ["EZE", "AUA"], ["AXA", "EZE"], ["AUA", "ANU"], ["ADL", "AXA"], ["EZE", "ADL"],
-         ["AUA", "ANU"], ["AXA", "EZE"], ["TIA", "AUA"], ["AXA", "EZE"], ["AUA", "SYD"], ["ADL", "JFK"], ["EZE", "AUA"],
-         ["ADL", "ANU"], ["AUA", "TIA"], ["ADL", "EZE"], ["TIA", "JFK"], ["AXA", "ANU"], ["JFK", "AXA"], ["JFK", "ADL"],
-         ["ADL", "EZE"], ["AXA", "TIA"], ["JFK", "AUA"], ["ADL", "EZE"], ["JFK", "ADL"], ["ADL", "AXA"], ["TIA", "AUA"],
-         ["AXA", "JFK"], ["ADL", "AUA"], ["TIA", "JFK"], ["JFK", "ADL"], ["JFK", "ADL"], ["ANU", "AXA"], ["TIA", "AXA"],
-         ["EZE", "JFK"], ["EZE", "AXA"], ["ADL", "TIA"], ["JFK", "AUA"], ["TIA", "EZE"], ["EZE", "ADL"], ["JFK", "ANU"],
-         ["TIA", "AUA"], ["EZE", "ADL"], ["ADL", "JFK"], ["ANU", "AXA"], ["AUA", "AXA"], ["ANU", "EZE"], ["ADL", "AXA"],
-         ["ANU", "AXA"], ["TIA", "ADL"], ["JFK", "ADL"], ["JFK", "TIA"], ["AUA", "ADL"], ["AUA", "TIA"], ["TIA", "JFK"],
-         ["EZE", "JFK"], ["AUA", "ADL"], ["ADL", "AUA"], ["EZE", "ANU"], ["ADL", "ANU"], ["AUA", "AXA"], ["AXA", "TIA"],
-         ["AXA", "TIA"], ["ADL", "AXA"], ["EZE", "AXA"], ["AXA", "JFK"], ["JFK", "AUA"], ["ANU", "ADL"], ["AXA", "TIA"],
-         ["ANU", "AUA"], ["JFK", "EZE"], ["AXA", "ADL"], ["TIA", "EZE"], ["JFK", "AXA"], ["AXA", "ADL"], ["EZE", "AUA"],
-         ["AXA", "ANU"], ["ADL", "EZE"], ["AUA", "EZE"]]))
+    # solve_obj = Solve()
+    solve_obj1 = Solve1()
+    print(solve_obj1.solve([["JFK", "KUL"], ["JFK", "NRT"], ["NRT", "JFK"]]))
     # 程序超时，明天对着教程淦
     ...
