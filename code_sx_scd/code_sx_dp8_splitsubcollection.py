@@ -13,7 +13,7 @@ def solve(nums):
     # 初始化
     backpack_max_num = int(backpack_max_num)
     res = [0 for _i in range(backpack_max_num + 1)]
-    for i in range(backpack_max_num + 1):
+    for i in range(backpack_max_num + 1):   
         if i >= nums[0]:
             res[i] = nums[0]
 
