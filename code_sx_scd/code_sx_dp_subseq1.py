@@ -10,7 +10,7 @@ def solve(nums):
     dp = [1] * len_nums
     for i in range(1, len_nums):
         for j in range(i):
-            if n    ums[j] < nums[i]:
+            if nums[j] < nums[i]:
                 dp[i] = max(dp[i], dp[j] + 1)
         res = max(res, dp[i])
 
